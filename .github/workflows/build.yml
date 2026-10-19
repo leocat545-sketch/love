@@ -1,0 +1,36 @@
+name: Build LOVE APK
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: build
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: love2d/love-android
+          ref: 11.5a
+          submodules: recursive
+          path: la
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Embed game
+        run: |
+          mkdir -p la/app/src/embed/assets
+          cp game.love la/app/src/embed/assets/game.love
+      - name: Build
+        working-directory: la
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleEmbedNoRecordDebug --no-daemon -Papp.application_id=com.leocat125.lovegame "-Papp.name=Mon Jeu LOVE"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apk
+          path: la/app/build/outputs/apk/**/*.apk
