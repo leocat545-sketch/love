@@ -30,9 +30,9 @@ jobs:
         run: |
           chmod +x gradlew
           sed -i '/^app\.name/d;/^app\.application_id/d' gradle.properties
-echo "app.name=Mon Jeu LOVE" >> gradle.properties
-echo "app.application_id=com.leocat125.lovegame" >> gradle.properties
-./gradlew assembleEmbedNoRecordDebug --no-daemon
+          echo "app.name=Mon Jeu LOVE" >> gradle.properties
+          echo "app.application_id=com.leocat125.lovegame" >> gradle.properties
+          ./gradlew assembleEmbedNoRecordDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: apk
