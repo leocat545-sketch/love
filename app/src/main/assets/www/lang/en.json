@@ -1,0 +1,45 @@
+{
+  "menu": {
+    "title_gamestart": "Start Game",
+    "title_settings": "Settings",
+    "title_credits": "Credits",
+    "exit": "Exit"
+  },
+  "settings": {
+    "title": "Settings",
+    "languageLabel": "Language:",
+    "back": "Back to Menu"
+  },
+  "credits": {
+    "title": "Credits",
+    "team": "Team / Author",
+    "developer": "Developer: ",
+    "artist": "Artist: ",
+    "music": "Music: ",
+    "resources": "External resources",
+    "libs": "Code libraries: ",
+    "thanks": "Acknowledgements",
+    "thanksText": "This project is a non-commercial fangame inspired by Five Nights at Freddy’s, created by Scott Cawthon. Special thanks to Scott for his original work, and to the FNAF community whose creativity, dedication, and passion have inspired countless projects and kept the legacy of the franchise alive. This fangame exists as a tribute to that spirit, and it would not have been possible without the collective enthusiasm and support that the community has shared throughout the years.",
+    "info": "Information",
+    "version": "Version: ",
+    "year": "Year: ",
+    "github": "GitHub:",
+    "githubName": "Bytech Technology",
+    "back": "Back to Menu"
+  },
+  "game_over": {
+    "ttitle": "GAME OVER",
+    "retry": "Retry",
+    "menu": "Main Menu",
+    "messages": {
+      "Freddy": "Freddy's laugh breaks the silence, coming closer step by step.\nWhen he arrives, darkness comes first.\nHearing that laughter may be the only thing that saves you.",
+      "Bonnie": "Bonnie lurks in the shadows of the left hallway.\nHis deceptive silence is deadlier than any sound.\nOnly a timely light can reveal his presence.",
+      "Chica": "Chica advances leaving a trail of metal and creaks.\nEach sound announces a hunger that never rests.\nIgnoring those noises opens the door to your end.",
+      "Foxy": "Foxy waits behind the curtain, restless and fierce.\nWhen he runs, no refuge is possible.\nKeeping his cove under watch is the only truce."
+    }
+  },
+  "warning":{
+    "headphones": "For the best experience, it is recommended to play with headphones. This will allow you to fully enjoy the atmosphere, sound effects, and immersion",
+    "intenseExperience": "This game is designed to provide an immersive and intense experience. During gameplay, you will encounter: Flashing lights and sudden flashes Loud, piercing sounds and unexpected jumpscares Scenes that may generate tension, fear, or anxiety"
+  }
+}
