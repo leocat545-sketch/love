@@ -13,8 +13,20 @@ export let translations = {};
 
 export async function loadLang() {
     const lang = localStorage.getItem("language") || "en";
-    const res = await fetch(`./lang/${lang}.json`);
-    translations = await res.json();
+    try {
+        const res = await fetch(`./lang/${lang}.json`);
+        if (!res.ok) throw new Error("Translations unavailable");
+        translations = await res.json();
+    } catch (e) {
+        // Android WebView/local file fallback: keep menu usable without fetch.
+        translations = {
+            menu: { title_gamestart: "Start Game", title_settings: "Settings", title_credits: "Credits", exit: "Exit" },
+            settings: { title: "Settings", languageLabel: "Language:", back: "Back to Menu" },
+            credits: { title: "Credits", team: "Team / Author", developer: "Developer: ", artist: "Artist: ", music: "Music: ", resources: "External resources", libs: "Code libraries: ", thanks: "Acknowledgements", thanksText: "Thanks for playing.", info: "Information", version: "Version: ", year: "Year: ", github: "GitHub:", githubName: "Bytech Technology", back: "Back to Menu" },
+            game_over: { retry: "Retry", menu: "Main Menu", ttitle: "GAME OVER", messages: {} },
+            warning: { headphones: "Headphones recommended.", intenseExperience: "This game contains flashing lights, loud sounds and jumpscares." }
+        };
+    }
     updateTexts();
 }
 
