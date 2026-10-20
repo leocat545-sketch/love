@@ -8,7 +8,7 @@ namespace AndroidHost {
   public class Activity1 : AndroidGameActivity {
     protected override void OnCreate(Bundle b) {
       base.OnCreate(b);
-      var g = new global::Game1();
+      var g = new global::Demo.Game1();
       SetContentView((View)g.Services.GetService(typeof(View)));
       g.Run();
     }
