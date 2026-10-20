@@ -1,4 +1,4 @@
-name: Build C# APK
+name: Build APK
 on:
   push:
     branches: [main]
@@ -15,12 +15,11 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-      - uses: actions/setup-dotnet@v4
+      - uses: gradle/actions/setup-gradle@v3
         with:
-          dotnet-version: 9.0.x
-      - run: dotnet workload install android
-      - run: dotnet build game/Game.csproj -c Debug
+          gradle-version: 8.7
+      - run: gradle assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: apk
-          path: game/bin/Debug/net9.0-android/*-Signed.apk
+          path: app/build/outputs/apk/debug/*.apk
