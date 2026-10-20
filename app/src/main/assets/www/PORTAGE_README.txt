@@ -1,0 +1,1 @@
+Portage expérimental : Electron/Express ne sont pas exécutés sur Android. EJS a été intégré au HTML. Des fonctions Electron/Node, modules manquants ou chemins de ressources peuvent nécessiter des corrections.
