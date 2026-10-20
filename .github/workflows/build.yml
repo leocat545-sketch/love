@@ -1,4 +1,4 @@
-name: Build LOVE APK
+name: Build APK
 on:
   push:
     branches: [main]
@@ -11,29 +11,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        with:
-          repository: love2d/love-android
-          ref: 11.5a
-          submodules: recursive
-          path: la
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: 17
-      - name: Embed game
-        run: |
-          mkdir -p la/app/src/embed/assets
-          cp game.love la/app/src/embed/assets/game.love
-      - name: Build
-        working-directory: la
-        run: |
-          chmod +x gradlew
-          sed -i '/^app\.name/d;/^app\.application_id/d' gradle.properties
-          echo "app.name=Mon Jeu LOVE" >> gradle.properties
-          echo "app.application_id=com.leocat125.lovegame" >> gradle.properties
-          ./gradlew assembleEmbedNoRecordDebug --no-daemon
+      - uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.7
+      - run: gradle assembleDebug --no-daemon
       - uses: actions/upload-artifact@v4
         with:
           name: apk
-          path: la/app/build/outputs/apk/**/*.apk
+          path: app/build/outputs/apk/debug/*.apk
