@@ -1,0 +1,44 @@
+name: Recover GameMaker code
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+concurrency:
+  group: recover
+  cancel-in-progress: true
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Assemble data.win
+        run: |
+          mkdir -p work
+          cat parts/data.win.part* > work/data.win
+          ls -l work/data.win
+      - name: Get UndertaleModTool CLI and scripts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download -R UnderminersTeam/UndertaleModTool -p '*CLI*Ubuntu*' -D cli || gh release download -R UnderminersTeam/UndertaleModTool -p '*CLI*' -D cli
+          ls cli; cd cli; for z in *.zip; do unzip -oq "$z"; done; cd ..
+          git clone --depth 1 https://github.com/UnderminersTeam/UndertaleModTool utmt-src
+      - name: Export code and sprites
+        run: |
+          CLI=$(find cli -iname 'UndertaleModCli*' -type f ! -name '*.dll' ! -name '*.pdb' ! -name '*.json' | head -1)
+          echo "CLI=$CLI"; chmod +x "$CLI"
+          for n in ExportAllCode ExportAllSprites; do
+            S=$(find utmt-src -name "$n.csx" | head -1)
+            echo "script $n -> $S"
+            [ -n "$S" ] && "$CLI" load work/data.win -s "$S" || true
+          done
+          ls -R work | head -50
+      - uses: actions/upload-artifact@v4
+        with:
+          name: recovered
+          path: |
+            work
+            !work/data.win
